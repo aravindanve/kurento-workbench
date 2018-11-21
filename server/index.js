@@ -38,7 +38,8 @@ wss.on('connection', ws => {
     console.log('ERROR', e.message));
 
   ws.on('close', () =>
-    console.log('INFO WebSocket close', ws.id));
+    (console.log('INFO WebSocket close', ws.id),
+    wsId && session.stop(wsId)));
 
   ws.on('message', message => {
     const data = JSON.parse(message);

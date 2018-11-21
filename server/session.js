@@ -1,8 +1,17 @@
 const kurentoClient = require('kurento-client');
+const WebSocket = require('ws');
 const getKurento = require('./getKurento');
 
-let clients = [];
+let clients = {};
 let candidatesQueue = {};
+
+process.on('SIGINT', () => {
+  console.log('Releasing all resources...');
+  for (const client of Object.keys(clients)) {
+    client.pipeline && client.pipeline.release();
+  }
+  process.exit(0);
+});
 
 function _createWebRtcEndpointsAndHubPorts(pipeline, composite, num, cb) {
   let bailed = false;
@@ -163,9 +172,10 @@ function stop(wsId) {
   if (!clients[wsId]) return;
   console.log('releasing resources for', wsId);
   clients[wsId].pipeline && clients[wsId].pipeline.release();
-  clients[wsId].ws.send(JSON.stringify({
-    id: 'stopCommunication'
-  }));
+  clients[wsId].ws.readyState === WebSocket.OPEN  &&
+    clients[wsId].ws.send(JSON.stringify({
+      id: 'stopCommunication'
+    }));
 }
 
 function onIceCandidate(wsId, sdpIndex, _candidate) {
