@@ -1,0 +1,16 @@
+{
+  "name": "kurento-workbench",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js"
+  },
+  "author": "Aravindan Ve <aravindan.ve@outlook.com>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "express": "^4.16.4",
+    "kurento-client": "^6.8.0",
+    "ws": "^6.1.0"
+  }
+}

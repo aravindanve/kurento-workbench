@@ -1,0 +1,28 @@
+# npm
+node_modules
+*.log
+*.gz
+
+# bower
+bower_components
+
+# macos
+.DS_Store*
+Icon?
+._*
+
+# windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# linux
+.directory
+*~
+
+# vscode
+.vscode
+
+# coverage
+.nyc_output
+/coverage
